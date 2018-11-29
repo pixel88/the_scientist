@@ -4,42 +4,65 @@ declare(strict_types=1);
 
 namespace LaravelDay\Article;
 
+use LaravelDay\Article\ValueObject\Title;
+
 final class Article
 {
-    /** @var int */
-    private $id;
     /** @var string */
     private $title;
-    /** @var string */
+
+    /**
+     * @var string
+     */
     private $body;
-    /** @var \DateTime */
+
+    /**
+     * @var \DateTime
+     */
     private $creationDate;
 
-    public function __construct(int $id, string $title, string $body, \DateTimeImmutable $creationDate)
+    /**
+     * @var int
+     */
+    private $id;
+
+    public function __construct(int $id, Title $title, string $body, \DateTimeImmutable $creationDate)
     {
-        $this->id = $id;  //// id autogenerato non va bene perchè non ti distacchi dal layer esterno db - fake insert
         $this->title = $title;
         $this->body = $body;
         $this->creationDate = $creationDate;
+        $this->id = $id;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): string
+    /**
+     * @return string
+     */
+    public function getTitle(): Title
     {
         return $this->title;
     }
 
+    /**
+     * @return string
+     */
     public function getBody(): string
     {
         return $this->body;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreationDate(): \DateTimeImmutable
     {
         return $this->creationDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }
