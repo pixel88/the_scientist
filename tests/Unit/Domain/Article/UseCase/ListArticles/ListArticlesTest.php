@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature;
+namespace Tests\Unit\Domain\Article\UseCase\ListArticles;
 
+use LaravelDay\Article\UseCase\ListArticle\ListArticles;
 use Tests\TestCase;
 
 class ListArticlesTest extends TestCase
@@ -15,15 +16,18 @@ class ListArticlesTest extends TestCase
      */
     public function shouldListArticles()
     {
-        $response = $this->get('api/articles');
+        $handler = new ListArticles();
 
-        $response->assertStatus(200);
-        $response->assertJson([
+        // $response->assertStatus(200);
+        $expectedData = [
             [
                 'body' => 'Some Text',
                 'creationDate' => '2018-11-29 00:00:00',
                 'title' => 'Articolo',
             ],
-        ]);
+        ];
+
+        $data = $handler();
+        $this->assertEquals($expectedData, $data);
     }
 }

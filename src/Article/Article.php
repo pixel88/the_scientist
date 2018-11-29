@@ -15,9 +15,9 @@ final class Article
     /** @var \DateTime */
     private $creationDate;
 
-    public function __construct(int $id, string $title, string $body, \DateTime $creationDate)
+    public function __construct(int $id, string $title, string $body, \DateTimeImmutable $creationDate)
     {
-        $this->id = $id;
+        $this->id = $id;  //// id autogenerato non va bene perchè non ti distacchi dal layer esterno db - fake insert
         $this->title = $title;
         $this->body = $body;
         $this->creationDate = $creationDate;
@@ -38,7 +38,7 @@ final class Article
         return $this->body;
     }
 
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): \DateTimeImmutable
     {
         return $this->creationDate;
     }
