@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Article;
 
 use LaravelDay\Article\Article;
+use LaravelDay\Article\ValueObject\Title;
 use Tests\TestCase;
 
 class ArticleTest extends TestCase
@@ -12,23 +13,20 @@ class ArticleTest extends TestCase
     /**
      * A basic test example.
      *
-     *
      * @test
      */
     public function shouldCreateAnArticle()
     {
-        // $this->assertTrue(true);
-
         $id = 1;
-        $title = 'Titolo';
-        $body = 'body';
-        $date = new \DateTimeImmutable();
+        $title = new Title('Questo è un titolo');
+        $body = 'Questo è un testo';
+        $creationDate = new \DateTimeImmutable();
 
-        $article = new Article($id, $title, $body, $date);
+        $article = new Article($id, $title, $body, $creationDate);
 
         $this->assertSame($id, $article->getId());
-        $this->assertSame($title, $article->getTitle());
+        $this->assertTrue($title->isEqual($article->getTitle()));
         $this->assertSame($body, $article->getBody());
-        $this->assertSame($date, $article->getCreationDate());
+        $this->assertSame($creationDate, $article->getCreationDate());
     }
 }
